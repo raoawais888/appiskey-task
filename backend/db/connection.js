@@ -1,11 +1,16 @@
 
 const mongoose = require("mongoose");
-const colors = require("colors");
 const connection = async (res) =>{
     try {
         
-         await mongoose.connect("mongodb+srv://raoawais888:RCy262%40f@test.17stik6.mongodb.net/?retryWrites=true&w=majority");
-        
+        const DB_URL = process.env.DB_URL
+
+        const OPTION = {
+            dbName: process.env.DB_NAME 
+        }
+
+         await mongoose.connect(DB_URL , OPTION);
+         
     
 
 
