@@ -32,5 +32,7 @@ app.use("/api",router);
 
 // Server Run  ..............................
 app.listen(PORT,()=>{
-    console.log(`http://localhost:${PORT}/api` .bgMagenta)
+
 })
+
+module.exports = app;

@@ -1,5 +1,5 @@
-const listModel = require("../models/listModel.js")
-class ListController{
+const taskModel = require("../models/taskModel.js")
+class taskController{
  
     // create list function ...................
     static create= async (req,res)=>{
@@ -29,24 +29,23 @@ class ListController{
         
 
         //  title check title is unique or not ///...................
-        const titleCheck = await listModel.findOne({title});
-        console.log(titleCheck)
-
+        const titleCheck = await taskModel.findOne({title});
+       
            if(!titleCheck){
                    
-                const listDoc = new listModel({
+                const listDoc = new taskModel({
               
                     title:title,
                     description:description,
                     status:status
                 })
 
-            const list =  await listDoc.save();
+            const task =  await listDoc.save();
 
             res.status(200).send({
                 success:true,
-                message:"List Added",
-                list:list
+                message:"Task Added",
+                task:task
             });
 
            }else{
@@ -74,14 +73,14 @@ class ListController{
 
 
      // read all  list function ...................
-     static lists  = async (req,res)=>{
+     static tasks  = async (req,res)=>{
         try {
              
-      const lists = await listModel.find();
+      const tasks = await taskModel.find();
       res.status(200).send({
         success:true,
-        message:"All List",
-        lists:lists
+        message:"All Tasks",
+        tasks:tasks
     });
 
         } catch (error) {
@@ -99,12 +98,12 @@ class ListController{
      static edit  = async (req,res)=>{
         try {
             const id = req.params.id;
-            const list = await listModel.findOne({_id:id});
+            const task = await taskModel.findOne({_id:id});
         
                 res.status(200).send({
                     success:true,
                     message:"Single List ",
-                    list:list
+                    task:task
                 });
         
             
@@ -127,7 +126,7 @@ class ListController{
                const id = req.params.id;
                
                
-               const updateList = await listModel.findByIdAndUpdate(id,{
+               const updateTask = await taskModel.findByIdAndUpdate(id,{
                 title,
                 description,
                 status
@@ -136,7 +135,7 @@ class ListController{
                res.status(200).send({
                 success:true,
                 message:"Update List ",
-                updateList:updateList
+                updatetask:updateTask
             });
           
             
@@ -155,11 +154,11 @@ class ListController{
         try {
 
             const id = req.params.id;
-             await listModel.findByIdAndDelete(id);
+             await taskModel.findByIdAndDelete(id);
               
              res.status(200).send({
                 success:true,
-                message:"List Deleted",
+                message:"Task Deleted",
                 
             });
             
@@ -178,4 +177,4 @@ class ListController{
 
 }
 
-module.exports = ListController;
+module.exports = taskController;
